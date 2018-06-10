@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">U Time</string>
+    <string name="enter">enter</string>
+    <string name="delete">delete</string>
+    <string name="back">back</string>
+    <string name="cou_start">确定</string>
+    <string name="cou_abo">放弃</string>
+    <string name="record_name">名称</string>
+    <string name="record_color">颜色</string>
+    <string name="record_image">图片</string>
+    <string name="record_add">添加</string>
+    <string name="name_empty">姓名不能为空</string>
+    <string name="color_empty">颜色不能为空</string>
+    <string name="color_valid">颜色不合法，0-255</string>
+    <string name="twice">当前事件已存在</string>
+    <string name="data">日期</string>
+    <string name="today">今天</string>
+    <string name="add_event">新建</string>
+    <string name="add_times">+1</string>
+    <string name="history_max">做的最多的</string>
+    <string name="history_min">做的最少的</string>
+    <string name="history7_max">最近7天做的最多的日子</string>
+    <string name="history7_min">最近7天做的最少的日子</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.myapplication.help"
+    tools:layout_editor_absoluteY="25dp">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:contentInsetStart="0dp">
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp" />
+
+        </android.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="125dp"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="180dp"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="入门使用介绍"
+            tools:layout_editor_absoluteX="140dp"
+            tools:layout_editor_absoluteY="110dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="待办使用方法"
+            tools:layout_editor_absoluteX="140dp"
+            tools:layout_editor_absoluteY="160dp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="提醒使用方法"
+            tools:layout_editor_absoluteX="140dp"
+            tools:layout_editor_absoluteY="210dp" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="足迹使用方法"
+            tools:layout_editor_absoluteX="140dp"
+            tools:layout_editor_absoluteY="260dp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="定时提醒使用方法"
+            tools:layout_editor_absoluteX="126dp"
+            tools:layout_editor_absoluteY="308dp" />
+
+    </LinearLayout>
+
+
+    <!--<android.support.constraint.ConstraintLayout-->
+    <!--android:id="@+id/constraintLayout"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/appBarLayout">-->
+
+
+    <!--</android.support.constraint.ConstraintLayout>-->
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="4sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+            android:id="@+id/notif_id"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:text="id"
+            android:visibility="gone" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/noti_done"
+                    android:checked="true"
+                    android:onClick="done_noti"
+                    android:layout_width="30dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:theme="@style/MyCheckBox"
+                    />
+                <TextView
+                    android:id="@+id/notif_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/noti_done"
+                    android:text="hello"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/left_day_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/day_done"
+                    android:text="1"
+                    android:textSize="16sp"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/notif_date_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0dp"
+                    android:layout_toLeftOf="@+id/day_done"
+                    android:text="1"
+                    android:textSize="16sp"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/day_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_toLeftOf="@+id/notif_delete_done"
+                    android:text="天"
+                    android:textSize="16sp"
+                    android:visibility="invisible"/>
+
+                <Button
+                    android:id="@+id/notif_delete_done"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/delete1"
+                    android:onClick="deletenotif" />
+            </RelativeLayout>
+        </LinearLayout>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="4sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

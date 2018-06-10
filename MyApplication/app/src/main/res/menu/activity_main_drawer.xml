@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_restore"
+            android:icon="@drawable/ic_backup_black_24dp"
+            android:title="备份" />
+        <item
+            android:id="@+id/nav_recovery"
+            android:icon="@drawable/ic_restore_black_24dp"
+            android:title="资料恢复" />
+        <item
+            android:id="@+id/nav_notify"
+            android:icon="@drawable/ic_add_alert_black_24dp"
+            android:title="系统通知" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="分享软件" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_explore_black_24dp"
+            android:title="帮助" />
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_menu_send"
+            android:title="联系我们" />
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="退出账号" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+
+        </menu>
+    </item>
+
+</menu>
