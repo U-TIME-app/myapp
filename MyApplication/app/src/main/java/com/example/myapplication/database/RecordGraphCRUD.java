@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -62,5 +66,35 @@ public class RecordGraphCRUD {
         db.close();
         return rgList;
     }
+    /**
+     * 添加备份
+     * @return
+     */
+    public JSONArray RecoveryJson(){
+        JSONArray array=new JSONArray();
+        SQLiteDatabase db=dbHelper.getReadableDatabase();
+        String selectQuery="SELECT "+
+                RecordGraph.KEY_ID + "," +
+                RecordGraph.KEY_date +","+
+                RecordGraph.KEY_record+ " "+
+                " FROM " + RecordGraph.TABLE ;
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        if(cursor.moveToFirst()){
+            do{
+                try{
+                    JSONObject recordg=new JSONObject();
+                    recordg.put("id", cursor.getInt(cursor.getColumnIndex(RecordGraph.KEY_ID)));
+                    recordg.put("date",cursor.getString(cursor.getColumnIndex(RecordGraph.KEY_date)));
+                    recordg.put("record", cursor.getInt(cursor.getColumnIndex(RecordGraph.KEY_record)));
+                    array.put(recordg);
+                }
+                catch (JSONException e){
 
+                }
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return array;
+    }
 }
