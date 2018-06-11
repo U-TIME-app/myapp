@@ -8,6 +8,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -193,4 +197,41 @@ public class RecordCRUD {
         return RecordList;
     }
 
+    /**
+     * 添加备份
+     * @return
+     */
+    public JSONArray RecoveryJson(){
+        JSONArray array=new JSONArray();
+        SQLiteDatabase db=dbHelper.getReadableDatabase();
+        String selectQuery="SELECT "+
+                Record.KEY_name + "," +
+                Record.KEY_times + "," +
+                Record.KEY_ID +"," +
+                Record.KEY_image +"," +
+                Record.KEY_calendar +"," +
+                Record.KEY_color+
+                " FROM " + Record.TABLE;
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        if(cursor.moveToFirst()){
+            do{
+                try{
+                    JSONObject record=new JSONObject();
+                    record.put("id", cursor.getInt(cursor.getColumnIndex(Record.KEY_ID)));
+                    record.put("name",cursor.getString(cursor.getColumnIndex(Record.KEY_name)));
+                    record.put("times", cursor.getInt(cursor.getColumnIndex(Record.KEY_times)));
+                    record.put("color",cursor.getInt(cursor.getColumnIndex(Record.KEY_color)));
+                    record.put("image", cursor.getInt(cursor.getColumnIndex(Record.KEY_image)));
+                    record.put("calendar",cursor.getInt(cursor.getColumnIndex(Record.KEY_calendar)));
+                    array.put(record);
+                }
+                catch (JSONException e){
+
+                }
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return array;
+    }
 }
