@@ -4,61 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.myapplication.LoginActivity">
+    tools:context="com.example.myapplication.LoginActivity"
+    android:background="@drawable/img4">
 
 
-    <EditText
-        android:id="@+id/phone_number"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="118dp"
-        android:hint="请输入你的手机号码"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="@+id/verification_code"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/verification_code"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="19dp"
-        android:hint="请输入验证码"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/button_send_verification_code"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_number" />
-
-    <Button
-        android:id="@+id/button_send_verification_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="18dp"
-        android:text="获取验证码"
-        android:background="@drawable/corner"
-        android:textColor="@color/wihte"
-        app:layout_constraintBaseline_toBaselineOf="@+id/verification_code"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/verification_code" />
-
-    <Button
-        android:id="@+id/button_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="59dp"
-        android:text="登    录"
-        android:textColor="@color/wihte"
-        android:background="@drawable/corner"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_send_verification_code" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:hint="请输入你的手机号码"
+            android:inputType="phone"
+            android:paddingBottom="50px"
+            android:paddingTop="50px"
+            android:textColorHint="@color/smssdk_black" />
+
+        <LinearLayout
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="20px">
+
+            <EditText
+                android:id="@+id/verification_code"
+                android:layout_width="198dp"
+                android:layout_height="wrap_content"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:paddingBottom="50px"
+                android:paddingTop="50px"
+                android:textColor="@color/smssdk_black"
+                android:textColorHint="@color/smssdk_black" />
+
+            <Button
+                android:id="@+id/button_send_verification_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:topLeftRadius="16dip"
+                android:topRightRadius="16dip"
+                android:bottomLeftRadius="16dip"
+                android:bottomRightRadius="16dip"
+                android:text="获取验证码" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:bottomLeftRadius="16dip"
+            android:bottomRightRadius="16dip"
+            android:text="登    录"
+            android:textColor="@color/smssdk_black"
+            android:textSize="18sp"
+            android:topLeftRadius="16dip"
+            android:topRightRadius="16dip" />
 
 
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
