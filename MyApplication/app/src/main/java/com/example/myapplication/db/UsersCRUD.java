@@ -31,6 +31,13 @@ public class UsersCRUD {
         db.close();
     }
 
+    public boolean deleteall(){
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        db.delete(Users.TABLE,null,
+                null);
+        db.close();
+        return true;
+    }
     public int getsum(){
         SQLiteDatabase db=dbHelper.getReadableDatabase();
         String sql = "SELECT COUNT(*) FROM "+Users.TABLE;
