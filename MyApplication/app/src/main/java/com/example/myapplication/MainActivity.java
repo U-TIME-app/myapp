@@ -362,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements
             public void run() {
                 HttpURLConnection connection=null;
                 try{
-                    URL url=new URL("http://39.107.253.131:3389/up");
+                    URL url=new URL("http://39.107.253.131:3389/backup");
                     connection=(HttpURLConnection)url.openConnection();
                     connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                     connection.setRequestProperty("Accept", "application/json");
@@ -375,10 +375,22 @@ public class MainActivity extends AppCompatActivity implements
                     out.append(object.toString());
                     out.flush();
                     out.close();
-
+                    InputStream in=connection.getInputStream();
+                    BufferedReader bufr=new BufferedReader(new InputStreamReader(in));
+                    String line=null;
+                    StringBuilder response=new StringBuilder();
+                    while((line=bufr.readLine())!=null){
+                        response.append(line);
+                    }
+                    line=response.toString();
+                    JSONObject jsonObject = new JSONObject(line);
+                    String name = jsonObject.optString("su");
+                    Log.e("su",name);
                     Message message=new Message();
                     message.what=BACKUP;
                     mhandler.sendMessage(message);
+                    bufr.close();
+                    in.close();
                 }catch(Exception e){
                     e.printStackTrace();
                 }finally {
