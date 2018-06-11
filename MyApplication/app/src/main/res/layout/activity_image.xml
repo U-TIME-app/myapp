@@ -5,7 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.myapplication.ImageActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:contentInsetStart="0dp">
+            <Button
+                android:id="@+id/back"
+                android:background="@drawable/ic_back"
+                android:onClick="back"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#FFFFFF"
+                android:text="@string/app_name"
+                android:textSize="22sp"/>
 
+        </android.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -14,17 +41,32 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="56dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="统计信息"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
         <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/line_chart"
             android:layout_width="fill_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:background="#ffffff" />
 
         <LinearLayout
@@ -48,60 +90,60 @@
                     android:id="@+id/all_max"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:text="@string/history_max" />
 
                 <TextView
                     android:id="@+id/all_max_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
                     android:text=" " />
 
                 <TextView
                     android:id="@+id/all_min"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:text="@string/history_min" />
 
                 <TextView
                     android:id="@+id/all_min_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
                     android:text=" " />
 
                 <TextView
                     android:id="@+id/max7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:text="@string/history7_max" />
 
                 <TextView
                     android:id="@+id/max7_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
                     android:text=" " />
 
                 <TextView
                     android:id="@+id/min7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:text="@string/history7_min" />
 
                 <TextView
                     android:id="@+id/min7_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     android:text=" " />
             </LinearLayout>
 
