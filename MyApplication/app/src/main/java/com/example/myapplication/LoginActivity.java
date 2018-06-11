@@ -236,16 +236,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                               idsql=json.getInt("insertId");
                                            }
                                         reader.close();
-
+                                        nuser.idsql=idsql;
+                                        ucrud.insert(nuser);
                                     }catch(Exception e){
-
                                         e.printStackTrace();
                                     }finally {
                                         if(connection!=null){
                                             connection.disconnect();
                                         }
-                                        nuser.idsql=idsql;
-                                        ucrud.insert(nuser);
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
