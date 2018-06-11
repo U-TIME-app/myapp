@@ -102,8 +102,7 @@ public class gridadapter extends BaseAdapter{
                                             }
             );
             mImageView3.setVisibility(iShowdDelete ? View.VISIBLE : View.GONE);
-            mText.setBackgroundColor(colors.get(position));
-            mText.setBackgroundResource(R.drawable.corner );
+            mText.setBackgroundColor(context.getResources().getColor(colors.get(position)));
             SpannableStringBuilder sb = new SpannableStringBuilder(things.get(position)+"+"+times.get(position));
             int length_start=things.get(position).length();
             int length_end=("+"+times.get(position)).length()+length_start;
