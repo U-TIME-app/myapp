@@ -39,7 +39,7 @@ import static android.graphics.Color.parseColor;
 public class ImageActivity extends AppCompatActivity {
     private LineChartView lineChart;
     private String[] datex =new String[7];//X轴的标注
-    private int[] datay ={0,1,2,3,4,5,6};//X轴的标注
+    private int[] datay ;//X轴的标注
     private int[] score= {0,0,0,0,0,0,0};//图表的数据
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
@@ -102,7 +102,7 @@ public class ImageActivity extends AppCompatActivity {
         List<Record> init_list=database.getRecordList();
         int numValues = init_list.size();
         List<SliceValue> values = new ArrayList<SliceValue>();
-        String color[]={"#FFFF00","#B0E2FF","#FF3030","#E5E5E5","#0000EE","#EED5D2","#8470FF"};
+        String color[]={"#FFFF00","#B0E2FF","#CCFFCC","#CCCCFF","#FFCC99","#99CCFF","#6699CC","#FFFFCC","#CCFF66"};
         int tempmax=0;
         int tempmin=100000000;
         for (int i = 0; i < numValues; ++i)
@@ -162,10 +162,21 @@ public class ImageActivity extends AppCompatActivity {
                 temp = score[i];
             }
         }
-        if (temp == 6) {
+        datay =new int[6*((temp/6)+1)];
+        for(int i=0;i<6*((temp/6)+1);i++){
+            datay[i] = i;//y轴的标注
+        }
+        return;
+        /*if (temp == 100) {
+            for(int i=0;i<100;i++){
+                datay[i] = i;//y轴的标注
+            }
             return;
         } else {
-            int max = temp / 6 + 1;
+            int max = temp / 100 + 1;
+            for(int i=1;i<=100;i++){
+                datay[i]=max*i;
+            }
             datay[6] = max * 6;
             datay[5] = max * 5;
             datay[4] = max * 4;
@@ -173,7 +184,7 @@ public class ImageActivity extends AppCompatActivity {
             datay[2] = max * 2;
             datay[1] = max * 1;
             return;
-        }
+        }*/
     }
     /**
      * 从数据库获取过去七天的打卡次数
@@ -232,7 +243,7 @@ public class ImageActivity extends AppCompatActivity {
         List<Line> lines = new ArrayList<Line>();
         line.setShape(ValueShape.CIRCLE);//折线图上每个数据点的形状  这里是圆形 （有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.SQUARE）
         line.setCubic(false);//曲线是否平滑
-//	    line.setStrokeWidth(3);//线条的粗细，默认是3
+	    line.setStrokeWidth(2);//线条的粗细，默认是3
         line.setFilled(false);//是否填充曲线的面积
         line.setHasLabels(true);//曲线的数据坐标是否加上备注
 //		line.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
@@ -254,7 +265,7 @@ public class ImageActivity extends AppCompatActivity {
         axisX.setValues(mAxisXValues);  //填充X轴的坐标名称
         data.setAxisXBottom(axisX); //x 轴在底部
 //	    data.setAxisXTop(axisX);  //x 轴在顶部
-        axisX.setHasLines(true); //x 轴分割线
+        axisX.setHasLines(false); //x 轴分割线
 
 
         Axis axisY = new Axis();  //Y轴
@@ -262,6 +273,7 @@ public class ImageActivity extends AppCompatActivity {
         axisY.setTextSize(11);//设置字体大小
         axisY.setMaxLabelChars(7);
         axisY.setValues(mAxisYValues);
+        axisY.setHasLines(true);
         data.setAxisYLeft(axisY);  //Y轴设置在左边
         //data.setAxisYRight(axisY);  //y轴设置在右边
         //设置行为属性，支持缩放、滑动以及平移
@@ -301,5 +313,11 @@ public class ImageActivity extends AppCompatActivity {
         for (int i = 0; i < score.length; i++) {
             mPointValues.add(new PointValue(i, score[i]));
         }
+    }
+    /*
+    返回上一页
+     */
+    public void back(View view){
+        onBackPressed();
     }
 }
