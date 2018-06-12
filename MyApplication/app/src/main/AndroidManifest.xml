@@ -54,7 +54,6 @@
         <activity android:name=".addcard" />
         <activity android:name=".AddActivity" />
         <activity android:name=".ImageActivity"></activity>
-        <activity android:name=".help"></activity>
         <activity android:name=".share"></activity>
         <activity android:name=".contact_us"></activity>
         <activity

@@ -74,7 +74,6 @@ public class RecordGraphCRUD {
         JSONArray array=new JSONArray();
         SQLiteDatabase db=dbHelper.getReadableDatabase();
         String selectQuery="SELECT "+
-                RecordGraph.KEY_ID + "," +
                 RecordGraph.KEY_date +","+
                 RecordGraph.KEY_record+ " "+
                 " FROM " + RecordGraph.TABLE ;
@@ -82,11 +81,10 @@ public class RecordGraphCRUD {
         if(cursor.moveToFirst()){
             do{
                 try{
-                    JSONObject recordg=new JSONObject();
-                    recordg.put("id", cursor.getInt(cursor.getColumnIndex(RecordGraph.KEY_ID)));
-                    recordg.put("date",cursor.getString(cursor.getColumnIndex(RecordGraph.KEY_date)));
-                    recordg.put("record", cursor.getInt(cursor.getColumnIndex(RecordGraph.KEY_record)));
-                    array.put(recordg);
+                    JSONObject record_graph=new JSONObject();
+                    record_graph.put("date",cursor.getString(cursor.getColumnIndex(RecordGraph.KEY_date)));
+                    record_graph.put("record", cursor.getInt(cursor.getColumnIndex(RecordGraph.KEY_record)));
+                    array.put(record_graph);
                 }
                 catch (JSONException e){
 
@@ -96,5 +94,13 @@ public class RecordGraphCRUD {
         cursor.close();
         db.close();
         return array;
+    }
+
+    public boolean deleteall(){
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        db.delete(RecordGraph.TABLE,null,
+                null);
+        db.close();
+        return true;
     }
 }

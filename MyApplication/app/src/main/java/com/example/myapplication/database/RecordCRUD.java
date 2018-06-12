@@ -207,7 +207,6 @@ public class RecordCRUD {
         String selectQuery="SELECT "+
                 Record.KEY_name + "," +
                 Record.KEY_times + "," +
-                Record.KEY_ID +"," +
                 Record.KEY_image +"," +
                 Record.KEY_calendar +"," +
                 Record.KEY_color+
@@ -217,7 +216,6 @@ public class RecordCRUD {
             do{
                 try{
                     JSONObject record=new JSONObject();
-                    record.put("id", cursor.getInt(cursor.getColumnIndex(Record.KEY_ID)));
                     record.put("name",cursor.getString(cursor.getColumnIndex(Record.KEY_name)));
                     record.put("times", cursor.getInt(cursor.getColumnIndex(Record.KEY_times)));
                     record.put("color",cursor.getInt(cursor.getColumnIndex(Record.KEY_color)));
@@ -233,5 +231,13 @@ public class RecordCRUD {
         cursor.close();
         db.close();
         return array;
+    }
+
+    public boolean deleteall(){
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        db.delete(Record.TABLE,null,
+                null);
+        db.close();
+        return true;
     }
 }

@@ -6,16 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,7 +28,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -56,33 +52,17 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Paint;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.db.Users;
 import com.example.myapplication.db.UsersCRUD;
-import com.example.myapplication.db.UsersDbHelper;
 import com.example.myapplication.db.notifcontract;
 import com.example.myapplication.db.notifdbhelper;
-import com.example.myapplication.base.activity.BaseActivity;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 
@@ -91,12 +71,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 //extends AppCompatActivity implements View.OnClickListener
@@ -206,6 +182,10 @@ public class MainActivity extends AppCompatActivity implements
         }
     };
 
+    private UsersCRUD ucrdb=new UsersCRUD(this);
+    private RecordCRUD rcrud=new RecordCRUD(this);
+    private RecordGraphCRUD rgcrud=new RecordGraphCRUD(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,14 +240,24 @@ public class MainActivity extends AppCompatActivity implements
                 }  else if (id == R.id.nav_share) {
                     Intent intent=new Intent(MainActivity.this,share.class);
                     startActivity(intent);
-                } else if (id == R.id.nav_help) {
-                    Intent intent=new Intent(MainActivity.this,help.class);
-                    startActivity(intent);
+                } else if (id == R.id.nav_login) {
+                    int i=ucrdb.getsum();
+                    if(i==0){
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        AlertDialog.Builder builder_bu  = new AlertDialog.Builder(MainActivity.this);
+                        builder_bu.setTitle("提示" ) ;
+                        builder_bu.setMessage("当前用户已登录" ) ;
+                        builder_bu.setPositiveButton("知道了" ,  null );
+                        builder_bu.show();
+                    }
                 } else if (id == R.id.nav_contact) {
                     Intent intent=new Intent(MainActivity.this,contact_us.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_exit) {
-
+                    ucrdb.deleteall();
                 }
 
 
@@ -281,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void backup(){
-        UsersCRUD ucrdb=new UsersCRUD(this);
+
         Users user=ucrdb.getUser();
         Log.e("A",user.idsql+"xx");
         if(user ==null){
@@ -293,6 +283,24 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
         final JSONObject object=new JSONObject();
+
+
+        //record和图表相关备份恢复
+        JSONArray record=rcrud.RecoveryJson();
+        try{
+            object.put("record", record);
+        }
+        catch (JSONException e){
+
+        }
+        JSONArray rg=rgcrud.RecoveryJson();
+        try{
+            object.put("record_graph", rg);
+        }
+        catch (JSONException e){
+
+        }
+        //备忘录相关备份恢复
         JSONArray array=new JSONArray();
         try{
             object.put("user_id", user.idsql);
@@ -403,8 +411,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void recovery(){
-
-        UsersCRUD ucrdb=new UsersCRUD(this);
         Users user=ucrdb.getUser();
         if(user==null){
             AlertDialog.Builder builder_bu  = new AlertDialog.Builder(MainActivity.this);
@@ -415,6 +421,8 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
         final int  user_id = user.idsql;
+        rcrud.deleteall();
+        rgcrud.deleteall();
         SQLiteDatabase db = mHelper.getWritableDatabase();
         db.delete(TaskContract.TaskEntry.TABLE,null,
                 null);
@@ -455,6 +463,8 @@ public class MainActivity extends AppCompatActivity implements
                     JSONObject jsonObject = new JSONObject(line);
                     JSONArray jsonArray = jsonObject.getJSONArray("task");
                     JSONArray jsonArray_sub = jsonObject.getJSONArray("task_sub");
+                    JSONArray jsonArray_record = jsonObject.getJSONArray("record");
+                    JSONArray jsonArray_rg = jsonObject.getJSONArray("record_graph");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject_task = jsonArray.getJSONObject(i);
 
@@ -489,6 +499,28 @@ public class MainActivity extends AppCompatActivity implements
                                     SQLiteDatabase.CONFLICT_REPLACE);
                             db.close();
 
+                        }
+                    }
+                    for (int i = 0; i < jsonArray_record.length(); i++) {
+                        JSONObject jsonObject_r = jsonArray_record.getJSONObject(i);
+
+                        if (jsonObject_r != null) {
+                            Record re=new Record();
+                            re.calendar=jsonObject_r.optInt("calendar");
+                            re.color=jsonObject_r.optInt("color");
+                            re.image=jsonObject_r.optInt("image");
+                            re.name=jsonObject_r.optString("name");
+                            re.times=jsonObject_r.optInt("times");
+                            rcrud.insert(re);
+                        }
+                    }
+                    for (int i = 0; i < jsonArray_rg.length(); i++) {
+                        JSONObject jsonObject_r = jsonArray_rg.getJSONObject(i);
+                        if (jsonObject_r != null) {
+                            RecordGraph rg=new RecordGraph();
+                            rg.date=jsonObject_r.optInt("date");
+                            rg.record_id=jsonObject_r.optInt("record");
+                            rgcrud.insert(rg);
                         }
                     }
                     Message message=new Message();
@@ -1258,7 +1290,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /*public void enter(View view) {
-        Intent intent =new Intent(MainActivity.this, help.class);
+        Intent intent =new Intent(MainActivity.this, login.class);
         startActivity(intent);
     }*/
 

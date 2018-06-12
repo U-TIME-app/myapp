@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_supervisor_account_black_24dp"
+            android:title="登陆" />
+        <item
             android:id="@+id/nav_restore"
             android:icon="@drawable/ic_backup_black_24dp"
             android:title="备份" />
@@ -20,10 +24,6 @@
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_menu_share"
             android:title="分享软件" />
-        <item
-            android:id="@+id/nav_help"
-            android:icon="@drawable/ic_explore_black_24dp"
-            android:title="帮助" />
         <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/ic_menu_send"
