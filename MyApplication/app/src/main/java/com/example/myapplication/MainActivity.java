@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements
         View.OnClickListener{
 
     private TextView mTextMessage;
+    private TextView usertele;
     private Button mAddButton;
     private TaskDbHelper mHelper;
     private ListView mTaskListView;
@@ -216,6 +217,8 @@ public class MainActivity extends AppCompatActivity implements
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -547,6 +550,14 @@ public class MainActivity extends AppCompatActivity implements
             drawer.closeDrawer(GravityCompat.START);
         }else {
             drawer.openDrawer(GravityCompat.START);
+            usertele=(TextView)findViewById(R.id.usertelephone);
+            Users user=ucrdb.getUser();
+            if(user!=null){
+                usertele.setText(user.phone);
+            }
+            else{
+                usertele.setText("请登录");
+            }
         }
     }
 
