@@ -1099,7 +1099,7 @@ public class MainActivity extends AppCompatActivity implements
                 time_now[where]=0;
             }
             else if(action ==0&& time_now[where]==0){
-                time_now[where]=4;
+                time_now[where]=9;
             }
             else if(action==1){
                 time_now[where]++;

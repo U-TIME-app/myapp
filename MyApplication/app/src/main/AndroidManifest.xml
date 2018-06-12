@@ -51,8 +51,8 @@
         <activity android:name=".catcount">
 
         </activity>
-        <activity android:name=".addcard" />
-        <activity android:name=".AddActivity" />
+        <activity android:name=".addcard"  />
+        <activity android:name=".AddActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ImageActivity"></activity>
         <activity android:name=".share"></activity>
         <activity android:name=".contact_us"></activity>
