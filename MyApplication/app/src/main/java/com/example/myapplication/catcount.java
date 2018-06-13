@@ -64,7 +64,9 @@ public class catcount extends AppCompatActivity {
                 .setMessage("确定放弃吗")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        startActivity(new Intent(catcount.this, MainActivity.class));
+                        finish();
+                        catcount.super.onBackPressed();
+                        //startActivity(new Intent(catcount.this, MainActivity.class));
                         timer2.cancel();
                         timer2=null;
                         cdt.cancel();
@@ -80,8 +82,9 @@ public class catcount extends AppCompatActivity {
                 .setMessage("定时结束")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-
-                        startActivity(new Intent(catcount.this, MainActivity.class));
+                        finish();
+                        catcount.super.onBackPressed();
+                        //startActivity(new Intent(catcount.this, MainActivity.class));
                     }
                 })
                 .show();
