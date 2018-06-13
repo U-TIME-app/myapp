@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import java.util.Timer;
 
 import com.example.myapplication.database.Record;
 import com.example.myapplication.database.RecordCRUD;
@@ -73,6 +74,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimerTask;
 
 
 //extends AppCompatActivity implements View.OnClickListener
@@ -92,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements
     private RelativeLayout notificationli;
     private ConstraintLayout footprintco;
     private TextView notiftodotext,notifdonetext;
+    private static Boolean isQuit = false;
+    private Timer timer = new Timer();
     //notification用到的变量
     TextView mTextMonthDay;
     TextView mTextYear;
@@ -1273,7 +1277,23 @@ public class MainActivity extends AppCompatActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (isQuit == false) {
+                isQuit = true;
+                Toast.makeText(getBaseContext(), "再按一次返回键退出程序", Toast.LENGTH_SHORT).show();
+                TimerTask task = null;
+                task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        isQuit = false;
+                    }
+                };
+                timer.schedule(task, 2000);
+            } else {
+                finish();
+                finishAffinity();
+                System.exit(0);
+                System.exit(0);
+            }
         }
     }
 
