@@ -1284,14 +1284,13 @@ public class MainActivity extends AppCompatActivity implements
                 task = new TimerTask() {
                     @Override
                     public void run() {
-                        isQuit = false;
+                        isQuit = false; 
                     }
                 };
                 timer.schedule(task, 2000);
             } else {
                 finish();
                 finishAffinity();
-                System.exit(0);
                 System.exit(0);
             }
         }
