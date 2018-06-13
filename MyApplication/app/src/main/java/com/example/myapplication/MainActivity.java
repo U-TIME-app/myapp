@@ -1290,7 +1290,6 @@ public class MainActivity extends AppCompatActivity implements
                 timer.schedule(task, 2000);
             } else {
                 finish();
-                finishAffinity();
                 System.exit(0);
             }
         }
