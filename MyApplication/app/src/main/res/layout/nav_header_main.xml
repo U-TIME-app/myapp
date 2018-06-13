@@ -25,6 +25,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="好好学习，天天向上(*^_^*)" />
+        android:text="This is U TIME" />
 
 </LinearLayout>

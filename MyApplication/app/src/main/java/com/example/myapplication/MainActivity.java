@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements
             switch (msg.what){
                 case UPDATEUI:
                     updateUI();
-                     updatenotifUI();
+                    updatenotifUI();
                     initDatas();
                     gridadapter = new gridadapter(MainActivity.this, mData,ID,things,times,cal,colors,isShowDelete);
 
@@ -238,9 +238,7 @@ public class MainActivity extends AppCompatActivity implements
                 }else if(id == R.id.nav_recovery){
                     recovery();
                 }
-                else if (id == R.id.nav_notify) {
-
-                }  else if (id == R.id.nav_share) {
+                else if (id == R.id.nav_share) {
                     Intent intent=new Intent(MainActivity.this,share.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_login) {
@@ -650,11 +648,11 @@ public class MainActivity extends AppCompatActivity implements
                         ContentValues values = new ContentValues();
                         values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
                         db.updateWithOnConflict(TaskContract.TaskEntry.TABLE,
-                                                values,
-                                                TaskContract.TaskEntry._ID + " = ?",
-                                                 new String[]{id},
-                                                 SQLiteDatabase.CONFLICT_REPLACE
-                                                );
+                                values,
+                                TaskContract.TaskEntry._ID + " = ?",
+                                new String[]{id},
+                                SQLiteDatabase.CONFLICT_REPLACE
+                        );
                         db.close();
                         updateUI();
                     }
