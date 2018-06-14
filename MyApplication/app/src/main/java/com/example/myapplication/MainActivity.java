@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements
     TextView mTextMonthDay;
     TextView mTextYear;
     TextView mTextLunar;
-    boolean isQuit=false;
+    private boolean isQuit=false;
     TextView mTextCurrentDay;
     CalendarView mCalendarView;
     RelativeLayout mRelativeTool;
@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements
                     updatenotifUI();
                     initDatas();
                     gridadapter = new gridadapter(MainActivity.this, mData,ID,things,times,cal,colors,isShowDelete);
-
                     mGridView.setAdapter(gridadapter);
                     gridadapter.notifyDataSetChanged();
                     AlertDialog.Builder builder  = new AlertDialog.Builder(MainActivity.this);
@@ -1322,14 +1321,13 @@ public class MainActivity extends AppCompatActivity implements
             if (isQuit == false) {
                 isQuit = true;
                 Toast.makeText(getBaseContext(), "再按一次返回键退出程序", Toast.LENGTH_SHORT).show();
-                TimerTask task = null;
-                task = new TimerTask() {
+                timer=new Timer();
+                timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         isQuit = false;
                     }
-                };
-                timer.schedule(task, 2000);
+                },2000);
             } else {
                 finish();
                 System.exit(0);
