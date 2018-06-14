@@ -132,7 +132,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:fitsSystemWindows="true"
-        android:visibility="gone"
+        android:visibility="invisible"
         tools:context="com.example.calendar.MainActivity"
         android:id="@+id/notification"
         tools:ignore="RtlHardcoded,HardcodedText,RtlSymmetry,SmallSp"
@@ -357,7 +357,7 @@
         android:layout_marginTop="56dp"
         android:layout_marginBottom="56dp"
         android:id="@+id/footprint"
-        android:visibility="gone"
+        android:visibility="invisible"
         >
 
         <GridView
@@ -397,7 +397,7 @@
         android:layout_height="fill_parent"
         android:background="@mipmap/counter1"
         android:id="@+id/screen_counter"
-        android:visibility="gone"
+        android:visibility="invisible"
         >
 
         <Button
