@@ -32,7 +32,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import java.util.Timer;
 
 import com.example.myapplication.database.Record;
 import com.example.myapplication.database.RecordCRUD;
@@ -74,6 +73,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
 import java.util.TimerTask;
 
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private TextView mTextMessage;
     private TextView usertele;
+    private Timer timer;
     private Button mAddButton;
     private TaskDbHelper mHelper;
     private ListView mTaskListView;
@@ -94,12 +95,11 @@ public class MainActivity extends AppCompatActivity implements
     private RelativeLayout notificationli;
     private ConstraintLayout footprintco;
     private TextView notiftodotext,notifdonetext;
-    private static Boolean isQuit = false;
-    private Timer timer = new Timer();
     //notification用到的变量
     TextView mTextMonthDay;
     TextView mTextYear;
     TextView mTextLunar;
+    boolean isQuit=false;
     TextView mTextCurrentDay;
     CalendarView mCalendarView;
     RelativeLayout mRelativeTool;
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements
     private ArrayList<String>things;
     private boolean isShowDelete=false;
     private GridView mGridView;
-    private gridadapter adapter;
+    private gridadapter gridadapter;
     final static int UPDATEUI=0;
     final static int BACKUP=1;
     private ImageButton add;
@@ -134,6 +134,12 @@ public class MainActivity extends AppCompatActivity implements
             switch (msg.what){
                 case UPDATEUI:
                     updateUI();
+                    updatenotifUI();
+                    initDatas();
+                    gridadapter = new gridadapter(MainActivity.this, mData,ID,things,times,cal,colors,isShowDelete);
+
+                    mGridView.setAdapter(gridadapter);
+                    gridadapter.notifyDataSetChanged();
                     AlertDialog.Builder builder  = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("确认" ) ;
                     builder.setMessage("恢复备份成功" ) ;
@@ -202,6 +208,7 @@ public class MainActivity extends AppCompatActivity implements
         screenre=(RelativeLayout)findViewById(R.id.screen_counter);
         footprintco=(ConstraintLayout)findViewById(R.id.footprint);
         mHelper = new TaskDbHelper(this);
+        nHelper = new notifdbhelper(this);
         mTextMessage = (TextView) findViewById(R.id.message);
         mTaskListView = (ListView) findViewById(R.id.list_todo);
         mAddButton = (Button)findViewById(R.id.add_task);
@@ -211,19 +218,8 @@ public class MainActivity extends AppCompatActivity implements
         mTaskListView.setVisibility(View.VISIBLE);
         mAddButton.setVisibility(View.VISIBLE);
         mAddButton.setOnClickListener(this);
+        mGridView = (GridView) findViewById(R.id.grid);
         updateUI();
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -242,9 +238,7 @@ public class MainActivity extends AppCompatActivity implements
                 }else if(id == R.id.nav_recovery){
                     recovery();
                 }
-                else if (id == R.id.nav_notify) {
-
-                }  else if (id == R.id.nav_share) {
+                else if (id == R.id.nav_share) {
                     Intent intent=new Intent(MainActivity.this,share.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_login) {
@@ -280,7 +274,6 @@ public class MainActivity extends AppCompatActivity implements
     public void backup(){
 
         Users user=ucrdb.getUser();
-        Log.e("A",user.idsql+"xx");
         if(user ==null){
             AlertDialog.Builder builder_bu  = new AlertDialog.Builder(MainActivity.this);
             builder_bu.setTitle("确认" ) ;
@@ -290,8 +283,14 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
         final JSONObject object=new JSONObject();
+        JSONArray array=new JSONArray();
+        try{
+            object.put("user_id", user.idsql);
 
+        }
+        catch (JSONException e){
 
+        }
         //record和图表相关备份恢复
         JSONArray record=rcrud.RecoveryJson();
         try{
@@ -308,26 +307,16 @@ public class MainActivity extends AppCompatActivity implements
 
         }
         //备忘录相关备份恢复
-        JSONArray array=new JSONArray();
-        try{
-            object.put("user_id", user.idsql);
-
-        }
-        catch (JSONException e){
-
-        }
         SQLiteDatabase db = mHelper.getReadableDatabase();
-        String selectsql="SELECT "+
-                TaskContract.TaskEntry._ID+ "," +
-                TaskContract.TaskEntry.COL_TASK_TITLE+ " " +
-                " FROM " + TaskContract.TaskEntry.TABLE;
-        Cursor cursor = db.rawQuery(selectsql,null);
+        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
+                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+                null, null, null, null, null);
         while (cursor.moveToNext()) {
             int task_content = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
             int id = cursor.getColumnIndex(TaskContract.TaskEntry._ID);
             try{
                 JSONObject task=new JSONObject();
-                task.put("id", cursor.getString(id));
+                task.put("id", cursor.getInt(id));
                 task.put("content",cursor.getString(task_content));
                 array.put(task);
             }
@@ -355,8 +344,8 @@ public class MainActivity extends AppCompatActivity implements
             int parent_id = cursor_sub.getColumnIndex(TaskContract.TaskEntry_sub.COL_TASK_ID_PARENT);
             try{
                 JSONObject task=new JSONObject();
-                task.put("id", cursor_sub.getString(id));
-                task.put("pid",cursor_sub.getString(parent_id));
+                task.put("id", cursor_sub.getInt(id));
+                task.put("pid",cursor_sub.getInt(parent_id));
                 task.put("content",cursor_sub.getString(task_content));
                 task.put("status",cursor_sub.getString(status));
                 array_sub.put(task);
@@ -368,6 +357,41 @@ public class MainActivity extends AppCompatActivity implements
         }
         try{
             object.put("task_sub", array_sub);
+        }
+        catch (JSONException e){
+
+        }
+        //倒计时部分备份
+        JSONArray array_noti=new JSONArray();
+
+        SQLiteDatabase db_noti = nHelper.getReadableDatabase();
+        Cursor cursor_noti = db_noti.query( notifcontract.notifEntry.TABLE,
+                new String[]{notifcontract.notifEntry._ID, notifcontract.notifEntry.COL_NOTIF_TITLE,notifcontract.notifEntry.COL_NOTIF_YEAR,notifcontract.notifEntry.COL_NOTIF_MONTH,notifcontract.notifEntry.COL_NOTIF_DAY,notifcontract.notifEntry.COL_NOTIF_STATUS},
+                null, null, null, null, null);
+        while (cursor_noti.moveToNext()) {
+            int id = cursor_noti.getColumnIndex(notifcontract.notifEntry._ID);
+            int title = cursor_noti.getColumnIndex(notifcontract.notifEntry.COL_NOTIF_TITLE);
+            int year = cursor_noti.getColumnIndex(notifcontract.notifEntry.COL_NOTIF_YEAR);
+            int month = cursor_noti.getColumnIndex(notifcontract.notifEntry.COL_NOTIF_MONTH);
+            int day = cursor_noti.getColumnIndex(notifcontract.notifEntry.COL_NOTIF_DAY);
+            int status = cursor_noti.getColumnIndex(notifcontract.notifEntry.COL_NOTIF_STATUS);
+            try{
+                JSONObject task=new JSONObject();
+                task.put("id",cursor_noti.getInt(id));
+                task.put("title",cursor_noti.getString(title));
+                task.put("year",cursor_noti.getInt(year));
+                task.put("month",cursor_noti.getInt(month));
+                task.put("day",cursor_noti.getInt(day));
+                task.put("status",cursor_noti.getString(status));
+                array_noti.put(task);
+            }
+            catch (JSONException e){
+
+            }
+
+        }
+        try{
+            object.put("noti", array_noti);
         }
         catch (JSONException e){
 
@@ -400,7 +424,6 @@ public class MainActivity extends AppCompatActivity implements
                     line=response.toString();
                     JSONObject jsonObject = new JSONObject(line);
                     String name = jsonObject.optString("su");
-                    Log.e("su",name);
                     Message message=new Message();
                     message.what=BACKUP;
                     mhandler.sendMessage(message);
@@ -437,7 +460,10 @@ public class MainActivity extends AppCompatActivity implements
                 null,
                 null);
         db.close();
-
+        SQLiteDatabase db_noti = nHelper.getWritableDatabase();
+        db_noti.delete(notifcontract.notifEntry.TABLE,null,
+                null);
+        db_noti.close();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -470,16 +496,18 @@ public class MainActivity extends AppCompatActivity implements
                     JSONObject jsonObject = new JSONObject(line);
                     JSONArray jsonArray = jsonObject.getJSONArray("task");
                     JSONArray jsonArray_sub = jsonObject.getJSONArray("task_sub");
+                    JSONArray jsonArray_noti = jsonObject.getJSONArray("noti");
                     JSONArray jsonArray_record = jsonObject.getJSONArray("record");
                     JSONArray jsonArray_rg = jsonObject.getJSONArray("record_graph");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject_task = jsonArray.getJSONObject(i);
 
                         if (jsonObject_task != null) {
-                            // int id = jsonObject_task.optInt("id");
+                            int id = jsonObject_task.optInt("id");
                             String content = jsonObject_task.optString("content");
                             SQLiteDatabase db = mHelper.getWritableDatabase();
                             ContentValues values = new ContentValues();
+                            values.put(TaskContract.TaskEntry._ID,id);
                             values.put(TaskContract.TaskEntry.COL_TASK_TITLE, content);
                             db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
                                     null,
@@ -488,15 +516,42 @@ public class MainActivity extends AppCompatActivity implements
                             db.close();
                         }
                     }
+                    for (int i = 0; i < jsonArray_noti.length(); i++) {
+                        JSONObject jsonObject_noti = jsonArray_noti.getJSONObject(i);
+
+                        if (jsonObject_noti != null) {
+                            int id = jsonObject_noti.optInt("id");
+                            String content = jsonObject_noti.optString("title");
+                            int year = jsonObject_noti.optInt("year");
+                            int month = jsonObject_noti.optInt("month");
+                            int day = jsonObject_noti.optInt("day");
+                            String status = jsonObject_noti.optString("status");
+                            SQLiteDatabase db_noti = nHelper.getWritableDatabase();
+                            ContentValues values = new ContentValues();
+                            values.put(notifcontract.notifEntry._ID,id);
+                            values.put( notifcontract.notifEntry.COL_NOTIF_TITLE, content);
+                            values.put( notifcontract.notifEntry.COL_NOTIF_YEAR, year);
+                            values.put( notifcontract.notifEntry.COL_NOTIF_MONTH, month);
+                            values.put( notifcontract.notifEntry.COL_NOTIF_DAY, day);
+                            values.put( notifcontract.notifEntry.COL_NOTIF_STATUS, status);
+                            db_noti.insertWithOnConflict(notifcontract.notifEntry.TABLE,
+                                    null,
+                                    values,
+                                    SQLiteDatabase.CONFLICT_REPLACE);
+                            db_noti.close();
+                        }
+                    }
                     for (int i = 0; i < jsonArray_sub.length(); i++) {
                         JSONObject jsonObject_task = jsonArray_sub.getJSONObject(i);
 
                         if (jsonObject_task != null) {
+                            int id = jsonObject_task.optInt("id");
                             int pid = jsonObject_task.optInt("pid");
                             String content = jsonObject_task.optString("content");
                             String status = jsonObject_task.optString("status");
                             SQLiteDatabase db = mHelper.getWritableDatabase();
                             ContentValues values = new ContentValues();
+                            values.put(TaskContract.TaskEntry_sub._ID, id);
                             values.put(TaskContract.TaskEntry_sub.COL_TASK_ID_PARENT, pid);
                             values.put(TaskContract.TaskEntry_sub.COL_TASK_TITLE_sub, content);
                             values.put(TaskContract.TaskEntry_sub.COL_TASK_TITLE_sub_done, status);
@@ -513,12 +568,13 @@ public class MainActivity extends AppCompatActivity implements
 
                         if (jsonObject_r != null) {
                             Record re=new Record();
+                            re.id=jsonObject_r.optInt("id");
                             re.calendar=jsonObject_r.optInt("calendar");
                             re.color=jsonObject_r.optInt("color");
                             re.image=jsonObject_r.optInt("image");
                             re.name=jsonObject_r.optString("name");
                             re.times=jsonObject_r.optInt("times");
-                            rcrud.insert(re);
+                            rcrud.insertall(re);
                         }
                     }
                     for (int i = 0; i < jsonArray_rg.length(); i++) {
@@ -592,11 +648,11 @@ public class MainActivity extends AppCompatActivity implements
                         ContentValues values = new ContentValues();
                         values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
                         db.updateWithOnConflict(TaskContract.TaskEntry.TABLE,
-                                                values,
-                                                TaskContract.TaskEntry._ID + " = ?",
-                                                 new String[]{id},
-                                                 SQLiteDatabase.CONFLICT_REPLACE
-                                                );
+                                values,
+                                TaskContract.TaskEntry._ID + " = ?",
+                                new String[]{id},
+                                SQLiteDatabase.CONFLICT_REPLACE
+                        );
                         db.close();
                         updateUI();
                     }
@@ -758,15 +814,6 @@ public class MainActivity extends AppCompatActivity implements
         mTextMonthDay.setText(mCalendarView.getCurMonth() + "月" + mCalendarView.getCurDay() + "日");
         mTextLunar.setText("今日");
         mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
-
-        /*mTextMonthDay.setVisibility(View.VISIBLE);
-        mTextYear.setVisibility(View.VISIBLE);
-        mTextLunar.setVisibility(View.VISIBLE);
-        mRelativeTool.setVisibility(View.VISIBLE);
-        mCalendarView.setVisibility(View.VISIBLE);
-        mTextCurrentDay.setVisibility(View.VISIBLE);*/
-
-
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("refreshnotifUI");
         registerReceiver(mRefreshBroadcastReceiver, intentFilter);
@@ -798,7 +845,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @SuppressLint("SetTextI18n")
     public void onDateSelected(com.haibin.calendarview.Calendar calendar, boolean isClick) {
-        //Log.e("onDateSelected", "  -- " + calendar.getYear() + "  --  " + calendar.getMonth() + "  -- " + calendar.getDay());
         mTextLunar.setVisibility(View.VISIBLE);
         mTextYear.setVisibility(View.VISIBLE);
         mTextMonthDay.setText(calendar.getMonth() + "月" + calendar.getDay() + "日");
@@ -826,7 +872,6 @@ public class MainActivity extends AppCompatActivity implements
 
 
     public void onMonthChange(int year, int month) {
-        //Log.e("onMonthChange", "  -- " + year + "  --  " + month);
     }
 
     public void onYearChange(int year) {
@@ -1023,7 +1068,6 @@ public class MainActivity extends AppCompatActivity implements
         }
         List<Map<String, Object>> list = new ArrayList<>();
         List<Map<String, Object>> list_done = new ArrayList<>();
-
         if(notifid.length==0){
             notiftodotext.setVisibility(View.GONE);
         }else{
@@ -1179,12 +1223,11 @@ public class MainActivity extends AppCompatActivity implements
 
     //footprint代码
     protected void initfootprint(){
-        mGridView = (GridView) findViewById(R.id.grid);
         add=(ImageButton)findViewById(R.id.floatingActionButton);
         initDatas();
 
-        adapter = new gridadapter(MainActivity.this, mData,ID,things,times,cal,colors,isShowDelete);
-        mGridView.setAdapter(adapter);
+        gridadapter = new gridadapter(MainActivity.this, mData,ID,things,times,cal,colors,isShowDelete);
+        mGridView.setAdapter(gridadapter);
         mGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
@@ -1194,9 +1237,9 @@ public class MainActivity extends AppCompatActivity implements
                 if(!isShowDelete)
                     isShowDelete=true;
                 else isShowDelete=false;
-                adapter = new gridadapter(MainActivity.this, mData,ID,things,times,cal,colors,isShowDelete);
-                mGridView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                gridadapter = new gridadapter(MainActivity.this, mData,ID,things,times,cal,colors,isShowDelete);
+                mGridView.setAdapter(gridadapter);
+                gridadapter.notifyDataSetChanged();
                 return true;
             }
 
@@ -1210,9 +1253,9 @@ public class MainActivity extends AppCompatActivity implements
                     times.set(position, times.get(position) + 1);
 
                     update_times(ID.get(position));
-                    adapter = new gridadapter(MainActivity.this, mData, ID, things, times, cal, colors, isShowDelete);
-                    mGridView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                    gridadapter = new gridadapter(MainActivity.this, mData, ID, things, times, cal, colors, isShowDelete);
+                    mGridView.setAdapter(gridadapter);
+                    gridadapter.notifyDataSetChanged();
                 }
 
 
@@ -1270,7 +1313,6 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -1284,7 +1326,7 @@ public class MainActivity extends AppCompatActivity implements
                 task = new TimerTask() {
                     @Override
                     public void run() {
-                        isQuit = false; 
+                        isQuit = false;
                     }
                 };
                 timer.schedule(task, 2000);

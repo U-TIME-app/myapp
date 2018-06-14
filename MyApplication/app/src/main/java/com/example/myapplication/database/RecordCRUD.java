@@ -44,6 +44,21 @@ public class RecordCRUD {
         return (int) id;
     }
 
+    public int insertall(Record record) {
+        long id = 0;
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Record.KEY_ID,record.id);
+        values.put(Record.KEY_color, record.color);
+        values.put(Record.KEY_name, record.name);
+        values.put(Record.KEY_times, record.times);
+        values.put(Record.KEY_image, record.image);
+        values.put(Record.KEY_calendar, record.calendar);
+        id = db.insert(Record.TABLE, null, values);
+        db.close();
+        return (int) id;
+    }
     /**
     *通过记录ID删除制定记录元素
     * @param id 记录的ID
@@ -205,6 +220,7 @@ public class RecordCRUD {
         JSONArray array=new JSONArray();
         SQLiteDatabase db=dbHelper.getReadableDatabase();
         String selectQuery="SELECT "+
+                Record.KEY_ID + "," +
                 Record.KEY_name + "," +
                 Record.KEY_times + "," +
                 Record.KEY_image +"," +
@@ -216,6 +232,7 @@ public class RecordCRUD {
             do{
                 try{
                     JSONObject record=new JSONObject();
+                    record.put("id",cursor.getString(cursor.getColumnIndex(Record.KEY_ID)));
                     record.put("name",cursor.getString(cursor.getColumnIndex(Record.KEY_name)));
                     record.put("times", cursor.getInt(cursor.getColumnIndex(Record.KEY_times)));
                     record.put("color",cursor.getInt(cursor.getColumnIndex(Record.KEY_color)));
