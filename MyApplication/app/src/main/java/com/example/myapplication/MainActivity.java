@@ -163,29 +163,29 @@ public class MainActivity extends AppCompatActivity implements
             switch (item.getItemId()) {
                 case R.id.navigation_todo:
                     todolistre.setVisibility(View.VISIBLE);
-                    notificationli.setVisibility(View.GONE);
-                    screenre.setVisibility(View.GONE);
-                    footprintco.setVisibility(View.GONE);
+                    notificationli.setVisibility(View.INVISIBLE);
+                    screenre.setVisibility(View.INVISIBLE);
+                    footprintco.setVisibility(View.INVISIBLE);
                     return true;
                 case R.id.navigation_notifications:
-                    todolistre.setVisibility(View.GONE);
+                    todolistre.setVisibility(View.INVISIBLE);
                     notificationli.setVisibility(View.VISIBLE);
-                    screenre.setVisibility(View.GONE);
-                    footprintco.setVisibility(View.GONE);
+                    screenre.setVisibility(View.INVISIBLE);
+                    footprintco.setVisibility(View.INVISIBLE);
                     initnotifView();
                     return true;
                 case R.id.navigation_footprint:
-                    todolistre.setVisibility(View.GONE);
-                    notificationli.setVisibility(View.GONE);
-                    screenre.setVisibility(View.GONE);
+                    todolistre.setVisibility(View.INVISIBLE);
+                    notificationli.setVisibility(View.INVISIBLE);
+                    screenre.setVisibility(View.INVISIBLE);
                     footprintco.setVisibility(View.VISIBLE);
                     initfootprint();
                     return true;
                 case R.id.navigation_screen:
-                    todolistre.setVisibility(View.GONE);
-                    notificationli.setVisibility(View.GONE);
+                    todolistre.setVisibility(View.INVISIBLE);
+                    notificationli.setVisibility(View.INVISIBLE);
                     screenre.setVisibility(View.VISIBLE);
-                    footprintco.setVisibility(View.GONE);
+                    footprintco.setVisibility(View.INVISIBLE);
                     initScreen();
                     return true;
             }
@@ -219,7 +219,21 @@ public class MainActivity extends AppCompatActivity implements
         mAddButton.setVisibility(View.VISIBLE);
         mAddButton.setOnClickListener(this);
         mGridView = (GridView) findViewById(R.id.grid);
+        nHelper = new notifdbhelper(this);
+        mTextMonthDay = (TextView) findViewById(R.id.tv_month_day);
+        mTextYear = (TextView) findViewById(R.id.tv_year);
+        mTextLunar = (TextView) findViewById(R.id.tv_lunar);
+        mRelativeTool = (RelativeLayout) findViewById(R.id.rl_tool);
+        mCalendarView = (CalendarView) findViewById(R.id.calendarView);
+        mTextCurrentDay = (TextView) findViewById(R.id.tv_current_day);
+        notiftodotext=(TextView) findViewById(R.id.notiftodotext);
+        notifdonetext=(TextView) findViewById(R.id.notifdonetext);
+        mCalendarLayout = (CalendarLayout) findViewById(R.id.calendarLayout);
+        notifListView = (ListView) findViewById(R.id.list_notif);
+        notifListView_done = (ListView) findViewById(R.id.list_notif_done);
         updateUI();
+        initfootprint();
+        initnotifView();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -776,14 +790,6 @@ public class MainActivity extends AppCompatActivity implements
 
     protected void initnotifView() {
         //setStatusBarDarkMode();
-        mTextMonthDay = (TextView) findViewById(R.id.tv_month_day);
-        mTextYear = (TextView) findViewById(R.id.tv_year);
-        mTextLunar = (TextView) findViewById(R.id.tv_lunar);
-        mRelativeTool = (RelativeLayout) findViewById(R.id.rl_tool);
-        mCalendarView = (CalendarView) findViewById(R.id.calendarView);
-        mTextCurrentDay = (TextView) findViewById(R.id.tv_current_day);
-        notiftodotext=(TextView) findViewById(R.id.notiftodotext);
-        notifdonetext=(TextView) findViewById(R.id.notifdonetext);
         mTextMonthDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -804,7 +810,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-        mCalendarLayout = (CalendarLayout) findViewById(R.id.calendarLayout);
         mCalendarView.setOnYearChangeListener(this);
         mCalendarView.setOnDateSelectedListener(this);
         mCalendarView.setOnMonthChangeListener(this);
@@ -817,9 +822,6 @@ public class MainActivity extends AppCompatActivity implements
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("refreshnotifUI");
         registerReceiver(mRefreshBroadcastReceiver, intentFilter);
-        nHelper = new notifdbhelper(this);
-        notifListView = (ListView) findViewById(R.id.list_notif);
-        notifListView_done = (ListView) findViewById(R.id.list_notif_done);
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
