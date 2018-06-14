@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements
     TextView mTextMonthDay;
     TextView mTextYear;
     TextView mTextLunar;
-    private boolean isQuit=false;
+    boolean isQuit=false;
     TextView mTextCurrentDay;
     CalendarView mCalendarView;
     RelativeLayout mRelativeTool;
@@ -134,9 +134,10 @@ public class MainActivity extends AppCompatActivity implements
             switch (msg.what){
                 case UPDATEUI:
                     updateUI();
-                    updatenotifUI();
+                     updatenotifUI();
                     initDatas();
                     gridadapter = new gridadapter(MainActivity.this, mData,ID,things,times,cal,colors,isShowDelete);
+
                     mGridView.setAdapter(gridadapter);
                     gridadapter.notifyDataSetChanged();
                     AlertDialog.Builder builder  = new AlertDialog.Builder(MainActivity.this);
@@ -647,11 +648,11 @@ public class MainActivity extends AppCompatActivity implements
                         ContentValues values = new ContentValues();
                         values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
                         db.updateWithOnConflict(TaskContract.TaskEntry.TABLE,
-                                values,
-                                TaskContract.TaskEntry._ID + " = ?",
-                                new String[]{id},
-                                SQLiteDatabase.CONFLICT_REPLACE
-                        );
+                                                values,
+                                                TaskContract.TaskEntry._ID + " = ?",
+                                                 new String[]{id},
+                                                 SQLiteDatabase.CONFLICT_REPLACE
+                                                );
                         db.close();
                         updateUI();
                     }
@@ -1321,13 +1322,15 @@ public class MainActivity extends AppCompatActivity implements
             if (isQuit == false) {
                 isQuit = true;
                 Toast.makeText(getBaseContext(), "再按一次返回键退出程序", Toast.LENGTH_SHORT).show();
-                timer=new Timer();
-                timer.schedule(new TimerTask() {
+                TimerTask task = null;
+                task = new TimerTask() {
                     @Override
                     public void run() {
                         isQuit = false;
                     }
-                },2000);
+                };
+                timer=new Timer();
+                timer.schedule(task, 2000);
             } else {
                 finish();
                 System.exit(0);

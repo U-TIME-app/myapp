@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:hint="请输入你的手机号码"
             android:inputType="phone"
+            android:textColor="@color/wihte"
             android:paddingBottom="50px"
             android:paddingTop="50px"
             android:textColorHint="@color/colorNor"
@@ -47,10 +48,10 @@
                 android:layout_width="198dp"
                 android:layout_height="wrap_content"
                 android:hint="请输入验证码"
+                android:textColor="@color/wihte"
                 android:inputType="number"
                 android:paddingBottom="50px"
                 android:paddingTop="50px"
-                android:textColor="@color/smssdk_black"
                 android:textColorHint="@color/colorText"
                 android:textSize="18sp" />
 
@@ -62,6 +63,7 @@
                 android:topRightRadius="16dip"
                 android:bottomLeftRadius="16dip"
                 android:bottomRightRadius="16dip"
+                android:textColor="@color/wihte"
                 android:background="@drawable/corner"
                 android:text="获取验证码" />
         </LinearLayout>
@@ -73,8 +75,8 @@
             android:bottomLeftRadius="16dip"
             android:bottomRightRadius="16dip"
             android:text="登    录"
-            android:textColor="@color/smssdk_black"
             android:background="@drawable/corner"
+            android:textColor="@color/wihte"
             android:textSize="18sp"
             android:topLeftRadius="16dip"
             android:topRightRadius="16dip" />
