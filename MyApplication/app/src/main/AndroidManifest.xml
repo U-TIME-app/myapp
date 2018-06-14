@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
+    package="com.UTime.nankai">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".MainActivity0"
+            android:name="com.UTime.nankai.MainActivity0"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,38 +30,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.UTime.nankai.MainActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".nextpage"
+            android:name="com.UTime.nankai.nextpage"
             android:label="@string/app_name" >
 
         </activity>
         <activity
-            android:name=".addnotif"
+            android:name="com.UTime.nankai.addnotif"
             android:label="@string/app_name" >
 
         </activity>
         <activity
-            android:name=".modifynotif"
+            android:name="com.UTime.nankai.modifynotif"
             android:label="@string/app_name" >
 
         </activity>
-        <activity android:name=".catcount">
+        <activity android:name="com.UTime.nankai.catcount">
 
         </activity>
-        <activity android:name=".addcard"  />
-        <activity android:name=".AddActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ImageActivity"></activity>
-        <activity android:name=".share"></activity>
-        <activity android:name=".contact_us"></activity>
+        <activity android:name="com.UTime.nankai.addcard"  />
+        <activity android:name="com.UTime.nankai.AddActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name="com.UTime.nankai.ImageActivity"></activity>
+        <activity android:name="com.UTime.nankai.share"></activity>
+        <activity android:name="com.UTime.nankai.contact_us"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name="com.UTime.nankai.LoginActivity"></activity>
     </application>
 
 </manifest>

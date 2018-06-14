@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context="com.example.myapplication.MainActivity">
+    tools:context="com.UTime.nankai.nk2018.example.myapplication.MainActivity">
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.myapplication.MainActivity">
+    tools:context="com.UTime.nankai.nk2018.example.myapplication.MainActivity">
     <!--android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.myapplication.MainActivity"
+        tools:context="com.UTime.nankai.nk2018.example.myapplication.MainActivity"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="56dp"
@@ -133,7 +133,7 @@
         android:background="#ffffff"
         android:fitsSystemWindows="true"
         android:visibility="gone"
-        tools:context="com.example.calendar.MainActivity"
+        tools:context="com.UTime.calendar.MainActivity"
         android:id="@+id/notification"
         tools:ignore="RtlHardcoded,HardcodedText,RtlSymmetry,SmallSp"
         >
@@ -293,7 +293,7 @@
                                 android:textSize="12sp"
                                 android:textColor="#6495ED"
                                 android:id="@+id/notiftodotext"/>
-                            <com.example.myapplication.MyListView
+                            <com.UTime.nankai.MyListView
                                 android:id="@+id/list_notif"
                                 android:layout_below="@+id/notiftodotext"
                                 android:layout_width="wrap_content"
@@ -308,7 +308,7 @@
                                 android:textColor="#6495ED"
                                 android:id="@+id/notifdonetext"
                                 android:layout_below="@+id/list_notif"/>
-                            <com.example.myapplication.MyListView
+                            <com.UTime.nankai.MyListView
                                 android:id="@+id/list_notif_done"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -353,7 +353,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorShadow"
-        tools:context="com.example.myapplication.MainActivity"
+        tools:context="com.UTime.nankai.nk2018.example.myapplication.MainActivity"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="56dp"
         android:id="@+id/footprint"
