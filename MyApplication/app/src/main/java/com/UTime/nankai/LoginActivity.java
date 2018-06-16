@@ -229,12 +229,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             sb.append(lines);
                                         }
                                         JSONObject json=new JSONObject(String.valueOf(sb));
-                                          try{
-                                              idsql=json.getInt("userid");
-                                           }
-                                          catch(Exception e){
-                                              idsql=json.getInt("insertId");
-                                           }
+                                        try{
+                                            idsql=json.getInt("userid");
+                                        }
+                                        catch(Exception e){
+                                            idsql=json.getInt("insertId");
+                                        }
                                         reader.close();
                                         nuser.idsql=idsql;
                                         ucrud.insert(nuser);
@@ -247,6 +247,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         finish();
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 }
                             }).start();
@@ -282,6 +283,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     break;
             }
         }
-  };
+    };
 }
 
