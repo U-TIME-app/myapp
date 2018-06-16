@@ -46,6 +46,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1095,7 +1097,8 @@ public class MainActivity extends AppCompatActivity implements
             map.put("day",notifday_done[i]);
             list_done.add(map);
         }
-
+        Collections.sort(list, new MapComparatorAsc());
+        Collections.sort(list_done, new MapComparatorAsc());
 
         //每个数据项对应一个Map，from表示的是Map中key的数组
         String[] from = {"id", "title","date","day"};
@@ -1366,5 +1369,18 @@ public class MainActivity extends AppCompatActivity implements
         startActivity(intent);
     }*/
 
+
+}
+
+class MapComparatorAsc implements Comparator<Map<String, Object>> {
+    @Override
+    public int compare(Map<String, Object> m1, Map<String, Object> m2) {
+        Integer v1 = Integer.valueOf(m1.get("day").toString());
+        Integer v2 = Integer.valueOf(m2.get("day").toString());
+        if(v1 != null){
+            return v1.compareTo(v2);
+        }
+        return 0;
+    }
 
 }
