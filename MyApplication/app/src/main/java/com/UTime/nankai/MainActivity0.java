@@ -26,13 +26,10 @@ public class MainActivity0 extends AppCompatActivity {
             @Override
             public void run() {
 
-                if(user==0){
-                    Intent intent = new Intent(MainActivity0.this,LoginActivity.class);
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(MainActivity0.this,MainActivity.class);
-                    startActivity(intent);
-                }
+
+                Intent intent = new Intent(MainActivity0.this,MainActivity.class);
+                startActivity(intent);
+
                 MainActivity0.this.finish();
             }
         }, time);
