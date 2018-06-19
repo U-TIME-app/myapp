@@ -19,7 +19,7 @@ public class contact_us extends Activity {
         back.setOnClickListener(new View.OnClickListener(){
                                     @Override
                                     public void onClick(View v) {
-                                        onBackPressed();
+                                        finish();
 
                                     }
                                 }
