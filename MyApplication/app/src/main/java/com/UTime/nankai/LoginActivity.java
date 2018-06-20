@@ -244,9 +244,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         if(connection!=null){
                                             connection.disconnect();
                                         }
-                                        finish();
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(intent);
+                                       
+                                 
                                         finish();
                                     }
                                 }
