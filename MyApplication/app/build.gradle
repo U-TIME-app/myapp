@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.myapplication"
+        applicationId "nk2018.UTime.nankai"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1

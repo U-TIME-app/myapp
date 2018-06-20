@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.myapplication.AddActivity">
+    tools:context="nk2018.UTime.nankai.AddActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -26,12 +26,6 @@
             android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             app:contentInsetStart="0dp">
-
-            <Button
-                android:id="@+id/back"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context="com.example.myapplication.MainActivity">
+    tools:context="nk2018.UTime.nankai.MainActivity">
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.myapplication.MainActivity">
+    tools:context="nk2018.example.myapplication.MainActivity">
     <!--android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.myapplication.MainActivity"
+        tools:context="com.UTime.nankai.nk2018.example.myapplication.MainActivity"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="56dp"
@@ -132,8 +132,8 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:fitsSystemWindows="true"
-        android:visibility="invisible"
-        tools:context="com.example.calendar.MainActivity"
+        android:visibility="gone"
+        tools:context="com.UTime.calendar.MainActivity"
         android:id="@+id/notification"
         tools:ignore="RtlHardcoded,HardcodedText,RtlSymmetry,SmallSp"
         >
@@ -248,7 +248,7 @@
                     app:current_month_text_color="#333333"
                     app:max_year="2020"
                     app:min_year="2004"
-                    app:month_view="com.example.myapplication.custom.CustomMonthView"
+                    app:month_view="com.UTime.nankai.custom.CustomMonthView"
                     app:month_view_show_mode="mode_fix"
                     app:other_month_lunar_text_color="#e1e1e1"
                     app:other_month_text_color="#e1e1e1"
@@ -260,7 +260,7 @@
                     app:week_background="#fff"
                     app:week_start_with="mon"
                     app:week_text_color="#e1e1e1"
-                    app:week_view="com.example.myapplication.custom.CustomWeekView"
+                    app:week_view="com.UTime.nankai.custom.CustomWeekView"
                     app:year_view_day_text_color="#333333"
                     app:year_view_day_text_size="9sp"
                     app:year_view_month_text_color="#ff0000"
@@ -293,7 +293,7 @@
                                 android:textSize="12sp"
                                 android:textColor="#6495ED"
                                 android:id="@+id/notiftodotext"/>
-                            <com.example.myapplication.MyListView
+                            <nk2018.UTime.nankai.MyListView
                                 android:id="@+id/list_notif"
                                 android:layout_below="@+id/notiftodotext"
                                 android:layout_width="wrap_content"
@@ -308,7 +308,7 @@
                                 android:textColor="#6495ED"
                                 android:id="@+id/notifdonetext"
                                 android:layout_below="@+id/list_notif"/>
-                            <com.example.myapplication.MyListView
+                            <nk2018.UTime.nankai.MyListView
                                 android:id="@+id/list_notif_done"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -353,11 +353,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorShadow"
-        tools:context="com.example.myapplication.MainActivity"
+        tools:context="com.UTime.nankai.nk2018.example.myapplication.MainActivity"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="56dp"
         android:id="@+id/footprint"
-        android:visibility="invisible"
+        android:visibility="gone"
         >
 
         <GridView
@@ -397,7 +397,7 @@
         android:layout_height="fill_parent"
         android:background="@mipmap/counter1"
         android:id="@+id/screen_counter"
-        android:visibility="invisible"
+        android:visibility="gone"
         >
 
         <Button

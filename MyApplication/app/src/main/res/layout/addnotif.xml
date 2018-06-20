@@ -4,88 +4,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/flower">
+    android:background="@mipmap/counter6">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="54dp"
-        android:layout_height="22dp"
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="156dp"
-        android:layout_weight="1"
-        android:text="名称:"
-        android:textColor="@color/wihte"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/notiftitle"
-        app:layout_constraintEnd_toStartOf="@+id/notiftitle"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/notiftitle"
-        android:layout_width="258dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="148dp"
-        android:layout_weight="1"
-        android:ems="15"
-        android:textColor="@color/wihte"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="69dp"
-        android:layout_height="18dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
-        android:layout_weight="1"
-        android:text="完成时间:"
-        android:textColor="@color/wihte"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/notiftime"
-        app:layout_constraintEnd_toStartOf="@+id/notiftime"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <EditText
-        android:id="@+id/notiftime"
-        android:layout_width="260dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_weight="1"
-        android:textColor="@color/wihte"
-        android:ems="15"
-        app:layout_constraintBottom_toTopOf="@+id/oknotifok"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.586" />
-
-
-    <Button
-        android:id="@+id/oknotifok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/linearLayout"
-        android:layout_marginBottom="124dp"
-        android:textColor="@color/wihte"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/flowerbutton"
-        android:text="OK"
-        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
+        <LinearLayout
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/notiftitle"
+                android:layout_width="292dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="请输入名称"
+                android:inputType="text"
+                android:textColor="@color/colorShadow"
+                android:textColorHint="@color/colorShadow"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="40px">
+
+            <EditText
+                android:id="@+id/notiftime"
+                android:layout_width="292dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="请输入完成时间"
+                android:inputType="text"
+                android:textColor="@color/colorShadow"
+                android:textColorHint="@color/colorShadow"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/oknotifok"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner"
+            android:bottomLeftRadius="16dip"
+            android:bottomRightRadius="16dip"
+            android:text="OK"
+            android:textColor="@color/wihte"
+            android:textSize="18sp"
+            android:topLeftRadius="16dip"
+            android:topRightRadius="16dip" />
+
+
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

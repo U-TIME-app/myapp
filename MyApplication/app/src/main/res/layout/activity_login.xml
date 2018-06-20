@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.myapplication.LoginActivity"
-    android:background="@drawable/img4">
+    tools:context="nk2018.UTime.nankai.LoginActivity"
+    android:background="@mipmap/counter4">
 
 
     <LinearLayout
@@ -20,66 +20,71 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <EditText
             android:id="@+id/phone_number"
             android:layout_width="292dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
             android:hint="请输入你的手机号码"
             android:inputType="phone"
-            android:textColor="@color/wihte"
             android:paddingBottom="50px"
             android:paddingTop="50px"
-            android:textColorHint="@color/colorNor"
+            android:textColor="@color/smssdk_black"
+            android:textColorHint="@color/smssdk_black"
             android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="296dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="20px">
+            android:paddingBottom="40px">
 
             <EditText
                 android:id="@+id/verification_code"
                 android:layout_width="198dp"
                 android:layout_height="wrap_content"
                 android:hint="请输入验证码"
-                android:textColor="@color/wihte"
                 android:inputType="number"
                 android:paddingBottom="50px"
                 android:paddingTop="50px"
-                android:textColorHint="@color/colorText"
+                android:textColor="@color/smssdk_black"
+                android:textColorHint="@color/smssdk_black"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/button_send_verification_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:topLeftRadius="16dip"
-                android:topRightRadius="16dip"
+                android:layout_margin="5px"
+                android:layout_marginLeft="5px"
+                android:layout_marginRight="5px"
+                android:background="@drawable/corner1"
                 android:bottomLeftRadius="16dip"
                 android:bottomRightRadius="16dip"
+                android:text="获取验证码"
                 android:textColor="@color/wihte"
-                android:background="@drawable/corner"
-                android:text="获取验证码" />
+                android:topLeftRadius="16dip"
+                android:topRightRadius="16dip" />
         </LinearLayout>
 
         <Button
             android:id="@+id/button_login"
             android:layout_width="182dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/corner1"
             android:bottomLeftRadius="16dip"
             android:bottomRightRadius="16dip"
             android:text="登    录"
-            android:background="@drawable/corner"
             android:textColor="@color/wihte"
             android:textSize="18sp"
             android:topLeftRadius="16dip"
             android:topRightRadius="16dip" />
+
+        
 
 
     </LinearLayout>
