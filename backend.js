@@ -66,3 +66,10 @@ app.post('/down', function (req, res) {
    res.send(re);
 })
             
+ var server = app.listen(3389, function () {
+  var host = server.address().address
+  var port = server.address().port
+
+  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+
+})
